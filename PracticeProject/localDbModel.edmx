@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище localDbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TruckId" Type="int" />
+          <Property Name="DriverName" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="DriverSurname" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="DriverDateOfBirth" Type="date" />
+          <Property Name="DriverDrivingLicense" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TruckId" Type="int" />
+          <Property Name="OrderStartDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="OrderEndDate" Type="datetime2" Precision="7" />
+          <Property Name="OrderState" Type="bit" Nullable="false" />
+          <Property Name="OrderPrice" Type="int" />
+          <Property Name="OrderDescription" Type="nchar" MaxLength="50" />
+          <Property Name="OrderDepPoint" Type="nchar" MaxLength="30" />
+          <Property Name="OrderEndPoint" Type="nchar" MaxLength="30" />
+          <Property Name="OrderDistance" Type="float" />
+          <Property Name="CargoWeight" Type="float" />
+        </EntityType>
+        <EntityType Name="Trucks">
+          <Key>
+            <PropertyRef Name="TruckId" />
+          </Key>
+          <Property Name="TruckId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TruckName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="TruckModel" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="TruckType" Type="nchar" MaxLength="20" />
+          <Property Name="TruckWeightLimit" Type="float" />
+          <Property Name="TruckMaxSize" Type="float" />
+          <Property Name="TruckCondition" Type="bit" />
+          <Property Name="TruckYearOfIssue" Type="date" />
+          <Property Name="TruckState" Type="bit" />
+          <Property Name="TruckLicState" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Drivers_Trucks">
+          <End Role="Trucks" Type="Self.Trucks" Multiplicity="0..1" />
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trucks">
+              <PropertyRef Name="TruckId" />
+            </Principal>
+            <Dependent Role="Drivers">
+              <PropertyRef Name="TruckId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Trucks">
+          <End Role="Trucks" Type="Self.Trucks" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trucks">
+              <PropertyRef Name="TruckId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="TruckId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище localDbModelContainer">
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trucks" EntityType="Self.Trucks" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Drivers_Trucks" Association="Self.FK_Drivers_Trucks">
+            <End Role="Trucks" EntitySet="Trucks" />
+            <End Role="Drivers" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Trucks" Association="Self.FK_Orders_Trucks">
+            <End Role="Trucks" EntitySet="Trucks" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="localDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TruckId" Type="Int32" />
+          <Property Name="DriverName" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DriverSurname" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DriverDateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="DriverDrivingLicense" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Truck" Relationship="localDbModel.FK_Drivers_Trucks" FromRole="Driver" ToRole="Truck" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TruckId" Type="Int32" />
+          <Property Name="OrderStartDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="OrderEndDate" Type="DateTime" Precision="7" />
+          <Property Name="OrderState" Type="Boolean" Nullable="false" />
+          <Property Name="OrderPrice" Type="Int32" />
+          <Property Name="OrderDescription" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="OrderDepPoint" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="OrderEndPoint" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="OrderDistance" Type="Double" />
+          <Property Name="CargoWeight" Type="Double" />
+          <NavigationProperty Name="Truck" Relationship="localDbModel.FK_Orders_Trucks" FromRole="Order" ToRole="Truck" />
+        </EntityType>
+        <EntityType Name="Truck">
+          <Key>
+            <PropertyRef Name="TruckId" />
+          </Key>
+          <Property Name="TruckId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TruckName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TruckModel" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TruckType" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="TruckWeightLimit" Type="Int32" />
+          <Property Name="TruckMaxSize" Type="Int32" />
+          <Property Name="TruckCondition" Type="Boolean" />
+          <Property Name="TruckYearOfIssue" Type="DateTime" Precision="0" />
+          <Property Name="TruckState" Type="Boolean" />
+          <Property Name="TruckLicState" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="localDbModel.FK_Orders_Trucks" FromRole="Truck" ToRole="Order" />
+          <NavigationProperty Name="Drivers" Relationship="localDbModel.FK_Drivers_Trucks" FromRole="Truck" ToRole="Driver" />
+        </EntityType>
+        <EntityContainer Name="localDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Trucks" EntityType="Self.Truck" />
+          <AssociationSet Name="FK_Orders_Trucks" Association="localDbModel.FK_Orders_Trucks">
+            <End Role="Truck" EntitySet="Trucks" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Drivers_Trucks" Association="localDbModel.FK_Drivers_Trucks">
+            <End Role="Truck" EntitySet="Trucks" />
+            <End Role="Driver" EntitySet="Drivers" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Orders_Trucks">
+          <End Type="localDbModel.Truck" Role="Truck" Multiplicity="0..1" />
+          <End Type="localDbModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Truck">
+              <PropertyRef Name="TruckId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="TruckId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Drivers_Trucks">
+          <End Type="localDbModel.Truck" Role="Truck" Multiplicity="0..1" />
+          <End Type="localDbModel.Driver" Role="Driver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Truck">
+              <PropertyRef Name="TruckId" />
+            </Principal>
+            <Dependent Role="Driver">
+              <PropertyRef Name="TruckId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище localDbModelContainer" CdmEntityContainer="localDbContext">
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="localDbModel.Driver">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="TruckId" ColumnName="TruckId" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="DriverSurname" ColumnName="DriverSurname" />
+                <ScalarProperty Name="DriverDateOfBirth" ColumnName="DriverDateOfBirth" />
+                <ScalarProperty Name="DriverDrivingLicense" ColumnName="DriverDrivingLicense" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="localDbModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="CargoWeight" ColumnName="CargoWeight" />
+                <ScalarProperty Name="OrderDistance" ColumnName="OrderDistance" />
+                <ScalarProperty Name="OrderEndPoint" ColumnName="OrderEndPoint" />
+                <ScalarProperty Name="OrderDepPoint" ColumnName="OrderDepPoint" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="TruckId" ColumnName="TruckId" />
+                <ScalarProperty Name="OrderStartDate" ColumnName="OrderStartDate" />
+                <ScalarProperty Name="OrderEndDate" ColumnName="OrderEndDate" />
+                <ScalarProperty Name="OrderState" ColumnName="OrderState" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderDescription" ColumnName="OrderDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trucks">
+            <EntityTypeMapping TypeName="localDbModel.Truck">
+              <MappingFragment StoreEntitySet="Trucks">
+                <ScalarProperty Name="TruckLicState" ColumnName="TruckLicState" />
+                <ScalarProperty Name="TruckId" ColumnName="TruckId" />
+                <ScalarProperty Name="TruckName" ColumnName="TruckName" />
+                <ScalarProperty Name="TruckModel" ColumnName="TruckModel" />
+                <ScalarProperty Name="TruckType" ColumnName="TruckType" />
+                <ScalarProperty Name="TruckWeightLimit" ColumnName="TruckWeightLimit" />
+                <ScalarProperty Name="TruckMaxSize" ColumnName="TruckMaxSize" />
+                <ScalarProperty Name="TruckCondition" ColumnName="TruckCondition" />
+                <ScalarProperty Name="TruckYearOfIssue" ColumnName="TruckYearOfIssue" />
+                <ScalarProperty Name="TruckState" ColumnName="TruckState" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

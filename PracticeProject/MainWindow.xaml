@@ -1,0 +1,104 @@
+﻿<Window x:Class="PracticeProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PracticeProject"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="1200" MinWidth="900" MinHeight="200">
+    <Window.Resources>
+        <Style TargetType="Button" >
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="MinWidth" Value="50"/>
+        </Style>
+
+        <Style TargetType="{x:Type Hyperlink}">
+
+            <Style.Triggers>
+
+                <Trigger Property="IsMouseOver" Value="True">
+
+                    <Setter Property="Foreground" Value="DarkSlateBlue" />
+
+                </Trigger>
+
+            </Style.Triggers>
+
+            <Setter Property="Foreground" Value="SteelBlue" />
+
+            <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
+
+        </Style>
+        
+
+    </Window.Resources>
+    <Grid Background="{StaticResource MediumBrush}" >
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" ></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" Background="{StaticResource MediumBaseBrush}">
+            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal"  HorizontalAlignment="Center">
+                <Button Margin="0,0,20,0" Command="{Binding TrucksPageCommand}"
+                        Style="{StaticResource BaseButton}">
+                    <Image Source="icons8-грузовая-машина-50.png"></Image>
+                    
+                </Button>
+                <Button Margin="0,0,20,0" Command="{Binding DriversPageCommand}"
+                        Style="{StaticResource BaseButton}">
+                    <Image Source="icons8-группы-пользователей-64.png"></Image>
+                </Button>
+                <Button Margin="0,0,20,0" Command="{Binding OrdersPageCommand}"
+                        Style="{StaticResource BaseButton}">
+                    <Image Source="icons8-история-заказов-50.png"></Image>
+                </Button>
+                <Button Margin="0,0,20,0" Command="{Binding StatsPageCommand}"
+                        Style="{StaticResource BaseButton}">
+                    <Image Source="icons8-столбчатая-диаграмма-64.png"></Image>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        
+        <StackPanel x:Name="ButtonsActionTab" Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right"  />
+
+        <StackPanel  Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Margin="10" FontSize="15">Управление грузоперевозками</TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0" Grid.Row="1" >
+
+            <TextBlock Margin="20,20,20,0" FontSize="18">
+                Грузовики на ожидании:  <Button Command="{Binding ShowTruckCommand}" Content="{Binding WaitingTrucksText}" Style="{StaticResource BaseButton}"/>
+            </TextBlock>
+            <!--<Button Command="{Binding ShowTruckCommand}" Content="{Binding WaitingTrucksText}" Style="{StaticResource BaseButton}"/>-->
+
+            <TextBlock Margin="20,20,20,0" FontSize="18">
+                Незавершенные сделки:
+                <Button Command="{Binding ShowOrdersCommand}" Content="{Binding OpenOrderText}" Style="{StaticResource BaseButton}"/>
+               
+            </TextBlock>
+            <TextBlock Margin="20,20,20,0" FontSize="18">
+                Неисправные автомобили:
+                <Button Command="{Binding ShowFaultTrucksCommand}" Content="{Binding FaultTrucksText}" Style="{StaticResource BaseButton}"/>
+               
+            </TextBlock>
+        </StackPanel>
+
+        <Frame 
+            Background="{StaticResource LightBrush}"
+            Grid.Row="1" 
+            Grid.Column="1"
+            NavigationUIVisibility="Hidden"
+            Content="{Binding CurrentPage}"/>
+
+
+
+    </Grid>
+</Window>

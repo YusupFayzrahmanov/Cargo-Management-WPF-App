@@ -1,0 +1,53 @@
+﻿<Window x:Class="PracticeProject.OrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PracticeProject"
+        mc:Ignorable="d"
+        Title="OrderWindow" Height="450" Width="700">
+    <Window.Resources>
+        
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="8" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="8" />
+        </Style>
+    </Window.Resources>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Место отправления:" Grid.Row="0"/>
+        <TextBlock Text="Место назначения:" Grid.Row="1"/>
+        <TextBlock Text="Описание заказа: " Grid.Row="2" />
+        <TextBlock Text="Вес груза(тонны): " Grid.Row="3" />
+        <TextBlock Text="Расстояние(км.):" Grid.Row="4"/>
+        <TextBlock Text="Цена заказа(руб.): " Grid.Row="5"/>
+
+
+
+        <TextBox Text="{Binding OrderDepPoint}" MaxLength="30" Grid.Column="1" Grid.Row="0" />
+        <TextBox Text="{Binding OrderEndPoint}" MaxLength="30" Grid.Column="1" Grid.Row="1" />
+        <TextBox Text="{Binding OrderDescription}" MaxLength="50" Grid.Column="1" Grid.Row="2" />
+        <TextBox Text="{Binding CargoWeight}" Grid.Column="1" Grid.Row="3" />
+        <TextBox Text="{Binding OrderDistance}" Grid.Column="1" Grid.Row="4" />
+        <TextBox Text="{Binding OrderPrice}" Grid.Column="1" Grid.Row="5" />
+
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
+            <Button IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="5">OK</Button>
+            <Button IsCancel="True" MinWidth="40" Margin="5">Отмена</Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,68 @@
+﻿<Page x:Class="PracticeProject.TrucksPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PracticeProject"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TrucksPage">
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.07*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel  Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <TextBlock FontSize="17" Margin="5" Text="Фильтр:"/>
+            <TextBox Width="70" Margin="5"  Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <ListView Grid.Column="0" Grid.Row="1" Name="trucksList" ItemsSource="{Binding Items}" HorizontalAlignment="Stretch" FontSize="13"  FontWeight="Normal">
+            <ListView.View>
+            <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding TruckName}" >Марка</GridViewColumn>
+                <GridViewColumn DisplayMemberBinding="{Binding TruckModel}" >Модель</GridViewColumn>
+                    
+                    <GridViewColumn DisplayMemberBinding="{Binding TruckType}"  >Тип</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding TruckLicState}" >Номер</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding TruckYearOfIssue}"
+                                    Width="80">Год выпуска</GridViewColumn>
+                    <GridViewColumn Width="40" DisplayMemberBinding="{Binding TruckWeightLimit}" >Грузоподъемность(т.)</GridViewColumn>
+                    <GridViewColumn Width="40" DisplayMemberBinding="{Binding TruckMaxSize}" >Макс. объем(л.)</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding TruckCondition}" >Работоспособность</GridViewColumn>
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding TruckState}" >Состояние</GridViewColumn>
+                </GridView>
+        </ListView.View>
+        </ListView>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Button Margin="5" Command="{Binding AddCommand}" MinHeight="35"
+                    Style="{StaticResource BaseButton}">
+                <Image Source="{StaticResource AddImg}"></Image>
+            </Button>
+            <Button Margin="5" MinHeight="35" Command="{Binding DeleteCommand}"
+                     CommandParameter="{Binding ElementName=trucksList, Path=SelectedItem}"
+                    Style="{StaticResource BaseButton}">
+                <Image Source="{StaticResource DeleteImg}"></Image>
+            </Button>
+            <Button Margin="5" MinHeight="35" Command="{Binding EditCommand}"
+                     CommandParameter="{Binding ElementName=trucksList, Path=SelectedItem}"
+                    Style="{StaticResource BaseButton}">
+                <Image Source="{StaticResource ChangeImg}"></Image>
+            </Button>
+            <Button Margin="5" MinHeight="35" Command="{Binding AddNewOrderCommand}"
+                    CommandParameter="{Binding ElementName=trucksList, Path=SelectedItem}"
+                    Style="{StaticResource BaseButton}">
+                <Image Source="{StaticResource AddOrderImg}"></Image>
+            </Button>
+            <Button Margin="5" MinHeight="35" Command="{Binding ChangeTruckCondition}"
+                    CommandParameter="{Binding ElementName=trucksList, Path=SelectedItem}"
+                    Style="{StaticResource BaseButton}">
+                <Image Source="{StaticResource ConditionImg}"></Image>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

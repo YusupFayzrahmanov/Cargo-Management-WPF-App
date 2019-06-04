@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:PracticeProject">
+
+    <BitmapImage x:Key="AddImg" UriSource="icons8-плюс-50.png"></BitmapImage>
+    <BitmapImage x:Key="DeleteImg" UriSource="icons8-отмена-50.png"></BitmapImage>
+    <BitmapImage x:Key="ChangeImg" UriSource="icons8-изменить-столбец-50.png"></BitmapImage>
+    <BitmapImage x:Key="AddOrderImg" UriSource="icons8-создать-заказ-80.png"></BitmapImage>
+    <BitmapImage x:Key="ConditionImg" UriSource="icons8-обслуживание-50.png"></BitmapImage>
+    <BitmapImage x:Key="CloseOrder" UriSource="icons8-закрыть-панель-64.png"></BitmapImage>
+    <!--<Image x:Key="AddImg" Source="icons8-плюс-50.png"></Image>
+    <Image x:Key="AddImg" Source="icons8-плюс-50.png"></Image>-->
+</ResourceDictionary>
